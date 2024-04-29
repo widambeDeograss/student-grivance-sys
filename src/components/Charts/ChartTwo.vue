@@ -1,25 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 // @ts-ignore
 import VueApexCharts from 'vue3-apexcharts'
+import { DivisionUrls } from '@/utils/apis'
+import { useDivisionsStore } from '@/stores/departmentsStore'
+import { useAlertStore } from '@/stores/alert'
+import { onMounted, ref } from 'vue'
+import AlertWarning from '@/components/Alerts/AlertWarning.vue'
 
-const chartData = {
-  series: [
-    {
-      name: 'Sales',
-      data: [44, 55, 41, 67, 22, 43, 65]
-    },
-    {
-      name: 'Revenue',
-      data: [13, 23, 20, 8, 13, 27, 15]
-    }
-  ],
-  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+interface statInterface {
+  users: number
+  divisions: number
+  solved_problems: number
+  unsolved_problems: number
+  chart_one: any
+  chart_two: any
+  chart_3: any
 }
+const alertStore = useAlertStore()
+const depStore = useDivisionsStore()
+const data = ref<statInterface>()
+const chartData = ref()
+const apexOptions = ref()
 
-const chart = ref(null)
+const isLoading = ref(false)
 
-const apexOptions = {
+
+onMounted(async () => {
+  try {
+    isLoading.value = true
+    const res = await depStore.getUserGrivances(DivisionUrls.dashboardStats)
+    if (res) {
+      chartData.value = res?.chart_3
+
+      const apexOptions1 = {
   colors: ['#3056D3', '#80CAEE'],
   chart: {
     type: 'bar',
@@ -59,7 +72,7 @@ const apexOptions = {
   },
   xaxis: {
     type: 'category',
-    categories: chartData.labels
+    categories:  res?.chart_3.labels
   },
   legend: {
     position: 'top',
@@ -76,6 +89,39 @@ const apexOptions = {
     opacity: 1
   }
 }
+
+apexOptions.value =apexOptions1;
+    }
+  } catch (error: any) {
+    console.error('Error fetching divisions:', error)
+    alertStore.addAlert({
+      title: 'Error',
+      message: 'Failed to fatch stats',
+      duration: 30000,
+      type: 'error'
+    })
+  } finally {
+    isLoading.value = false
+  }
+})
+
+// const chartData = {
+//   series: [
+//     {
+//       name: 'Sales',
+//       data: [44, 55, 41, 67, 22, 43, 65]
+//     },
+//     {
+//       name: 'Revenue',
+//       data: [13, 23, 20, 8, 13, 27, 15]
+//     }
+//   ],
+//   labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+// }
+
+const chart = ref(null)
+
+
 </script>
 
 <template>
@@ -84,9 +130,9 @@ const apexOptions = {
   >
     <div class="mb-4 justify-between gap-4 sm:flex">
       <div>
-        <h4 class="text-xl font-bold text-black dark:text-white">Profit this week</h4>
+        <h4 class="text-xl font-bold text-black dark:text-white">Solved to unsolved Grievances</h4>
       </div>
-      <div>
+      <!-- <div>
         <div class="relative z-20 inline-block">
           <select
             name="#"
@@ -117,7 +163,7 @@ const apexOptions = {
             </svg>
           </span>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div>
@@ -126,7 +172,7 @@ const apexOptions = {
           type="bar"
           height="335"
           :options="apexOptions"
-          :series="chartData.series"
+          :series="chartData?.series"
           ref="chart"
         />
       </div>

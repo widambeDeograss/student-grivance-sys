@@ -1,42 +1,91 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+import { useAlertStore } from '@/stores/alert'
+import { baseUrl } from '@/utils/baseUrl'
+
+interface userIc {
+  email: string
+  name: string
+  profile: string
+  username: string
+}
+
+const authStore = useAuthStore()
+const alert = useAlertStore()
+const currentUser = authStore.userDtl.split('_')
+const role = authStore.usrrl;
+console.log(currentUser)
 
 const target = ref(null)
 const dropdownOpen = ref(false)
 const notifying = ref(true)
 
+import { usersInfo } from '@/utils/apis'
+import { useDivisionsStore } from '@/stores/departmentsStore'
+import { idText } from 'typescript'
+
+interface notificationInterface {
+  id: string
+  created_at: string
+  notification: string
+  division: any
+  user: any
+  sub_divifany: any
+}
+
+const alertStore = useAlertStore()
+const divisionStore = useDivisionsStore()
+
+const isLoading = ref(false)
+const notification = ref<notificationInterface[]>([])
+
+onMounted(async () => {
+  try {
+    isLoading.value = true
+    const ress = await divisionStore.getAllProblems(usersInfo.userNotification + `?querytype=all`)
+    console.log(ress)
+    if (ress) {
+      const notfyU = ress?.filter(
+        (item: notificationInterface) =>
+          item.user?.email === currentUser[2] 
+      )
+      const notfyD = ress?.filter(
+        (item: notificationInterface) =>
+        item.division?.admin.email === currentUser[2] 
+      )
+      const notfyS = ress?.filter(
+        (item: notificationInterface) =>
+        item.sub_divifany?.admin.email === currentUser[2] 
+      )
+
+     notification.value = role == "rspadm"?notfyD: role == "student"? notfyU:role == "dadm"?notfyD:notfyS;
+    
+    }
+    
+    
+          //  ||
+          // 
+    //  const res =  await axios.get(DivisionUrls.allDivisions + `?querytype=all`);
+
+    // Further processing of division data if needed
+  } catch (error) {
+    console.error('Error fetching Divisions:', error)
+    alertStore.addAlert({
+      title: 'Error',
+      message: 'Failed to fetch Notifications',
+      duration: 3000,
+      type: 'error'
+    })
+  } finally {
+    isLoading.value = false
+  }
+})
+
 onClickOutside(target, () => {
   dropdownOpen.value = false
 })
-
-const notificationItems = ref([
-  {
-    route: '#',
-    title: 'Edit your information in a swipe',
-    details:
-      'Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.',
-    time: '12 May, 2025'
-  },
-  {
-    route: '#',
-    title: 'It is a long established fact',
-    details: 'that a reader will be distracted by the readable.',
-    time: '24 Feb, 2025'
-  },
-  {
-    route: '#',
-    title: 'There are many variations',
-    details: 'of passages of Lorem Ipsum available, but the majority have suffered',
-    time: '04 Jan, 2025'
-  },
-  {
-    route: '#',
-    title: 'There are many variations',
-    details: 'of passages of Lorem Ipsum available, but the majority have suffered',
-    time: '01 Dec, 2024'
-  }
-])
 </script>
 
 <template>
@@ -80,18 +129,18 @@ const notificationItems = ref([
       </div>
 
       <ul class="flex h-auto flex-col overflow-y-auto">
-        <template v-for="(item, index) in notificationItems" :key="index">
+        <template v-for="(item, index) in notification" :key="index">
           <li>
             <router-link
               class="flex flex-col gap-2.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
-              :to="item.route"
+              to="#"
             >
               <p class="text-sm">
-                <span class="text-black dark:text-white">{{ item.title }}</span>
-                {{ item.details }}
+                <span class="text-black dark:text-white">Notification</span>
+                {{ item.notification }}
               </p>
 
-              <p class="text-xs">{{ item.time }}</p>
+              <p class="text-xs">{{ item.created_at }}</p>
             </router-link>
           </li>
         </template>

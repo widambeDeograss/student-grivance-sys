@@ -26,6 +26,10 @@ import GrivanceDetails from '../views/Dashboard/GrivanceDetails.vue'
 import GrivanceDetailUser from '@/views/Pages/GrivanceDetailUser.vue'
 import DivisonProblemTypes from '@/views/Dashboard/DivisonProblemTypes.vue'
 import Subdivisions from '@/views/Dashboard/Subdivisions.vue'
+import SubDivisionGrivances from '@/views/Dashboard/SubDivisionGrivances.vue'
+import SubdivisionProblemTypes from '@/views/Dashboard/SubdivisionProblemTypes.vue'
+import ProblemTypeStats from '@/views/Dashboard/ProblemTypeStats.vue'
+import DivisionStats from '@/views/Dashboard/DivisionStats.vue'
 
 const routes = [
   {
@@ -108,11 +112,38 @@ const routes = [
     }
   },
   {
+    path: '/dashboard/sub_division_grivances',
+    name: 'SubDivisionGrivances',
+    component: SubDivisionGrivances,
+    meta: {
+      title: 'SubDivisionGrivances',
+      requiresAuth:true
+    }
+  },
+  {
     path: '/dashboard/grivance/:id',
     name: 'GrivanceDetails',
     component: GrivanceDetails,
     meta: {
       title: 'GrivanceDetails',
+      requiresAuth:true
+    }
+  },
+  {
+    path: '/dashboard/problem_type/:id',
+    name: 'ProblemTypeDetails',
+    component: ProblemTypeStats,
+    meta: {
+      title: 'ProblemTypeDetails',
+      requiresAuth:true
+    }
+  },
+  {
+    path: '/dashboard/division/:id',
+    name: 'DivisionDetails',
+    component: DivisionStats,
+    meta: {
+      title: 'DivisionDetails',
       requiresAuth:true
     }
   },
@@ -131,6 +162,15 @@ const routes = [
     component: DivisonProblemTypes,
     meta: {
       title: 'DivisionProblemTypes',
+      requiresAuth:true
+    }
+  },
+  {
+    path: '/dashboard/sub_division_problem_types',
+    name: 'SubDivisionProblemTypes',
+    component: SubdivisionProblemTypes,
+    meta: {
+      title: 'SubDivisionProblemTypes',
       requiresAuth:true
     }
   },

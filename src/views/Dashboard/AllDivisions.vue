@@ -9,6 +9,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { DivisionUrls } from '@/utils/apis'
 import { useDivisionsStore } from '@/stores/departmentsStore'
 import ButtonDefault from '@/components/Buttons/ButtonDefault.vue'
+import router from '@/router'
 
 
 interface divisionInterface {
@@ -26,6 +27,12 @@ const divisionStore = useDivisionsStore()
 const pageTitle = ref('Divisions');
 const isLoading = ref(false);
 const divisions = ref<divisionInterface[]>([]);
+
+
+const viewDiv = (id:any) =>  {
+     router.push('/dashboard/division/' + id)
+}
+
 onMounted(async () => {
   try {
     isLoading.value = true
@@ -119,7 +126,9 @@ onMounted(async () => {
                 </td>
                 <td class="py-5 px-4">
                   <div class="flex items-center space-x-3.5">
-                    <button class="hover:text-primary">
+                    <button class="hover:text-primary"
+                    @click="viewDiv(item?.id)"
+                    >
                       <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path

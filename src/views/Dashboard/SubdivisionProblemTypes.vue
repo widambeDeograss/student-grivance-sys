@@ -10,7 +10,6 @@ import { grivancesUrls, usersInfo, problemsUrl, DivisionUrls } from '@/utils/api
 import { useDivisionsStore } from '@/stores/departmentsStore'
 import { renderDateTime } from '@/utils/dateFormater'
 import ButtonDefault from '@/components/Buttons/ButtonDefault.vue'
-import router from '@/router'
 
 interface CUser {
   id: string
@@ -65,7 +64,7 @@ const loadProblems = async () => {
         )
         
         console.log(probs)
-        const division_grivances = await probs?.filter((grivance: grivance) => grivance.responsible_division?.admin.id == admin?.value?.id)
+        const division_grivances = await probs?.filter((grivance: grivance) => grivance.responsible_sub_divifany?.admin.id == admin?.value?.id)
         problem_types.value = division_grivances
         
       } catch (error) {
@@ -97,9 +96,7 @@ onMounted(async () => {
   await loadProblems()
 })
 
-const viewProblem = (id:any) =>  {
-     router.push('/dashboard/problem_type/' + id)
-}
+
 </script>
 
 <template>
@@ -169,7 +166,7 @@ const viewProblem = (id:any) =>  {
         </div>
 
         <div class="col-span-2 flex items-center">
-          <p class="font-medium">Responsible Devision name</p>
+          <p class="font-medium"> Division name</p>
         </div>
         <div class="col-span-2 flex items-center">
           <p class="font-medium">Time (D:H:M)</p>
@@ -211,11 +208,17 @@ const viewProblem = (id:any) =>  {
           <div class="col-span-1 flex items-center">
             <p class="text-sm font-medium text-black dark:text-white">{{ type.time_required }}</p>
           </div>
-     
-          <div class="col-span-1 flex items-center">
-            <button class="hover:text-primary"
-            @click="viewProblem(type.id)"
-            >
+          <!-- <div class="col-span-1 flex items-center">
+                        <p class="text-sm font-medium text-meta-3" v-if="grvs.problem_solved_state">
+                            Solved
+                        </p>
+                        <p class="text-sm font-medium text-meta-6" v-else-if="!grvs.problem_solved_state">
+                            Pending
+                        </p>
+
+                    </div> -->
+          <!-- <div class="col-span-1 flex items-center">
+            <button class="hover:text-primary">
               <svg
                 class="fill-current"
                 width="18"
@@ -234,7 +237,7 @@ const viewProblem = (id:any) =>  {
                 />
               </svg>
             </button>
-          </div>
+          </div> -->
         </div>
       </template>
       <!-- Table Rows -->

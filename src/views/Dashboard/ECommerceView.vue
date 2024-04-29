@@ -15,32 +15,20 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
       <DataStatsOne />
     </div>
 
-    <div class="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-      <!-- ====== Chart One Start -->
+    <div class="mt-4 md:mt-6 md:gap-6 2xl:mt-7.5">
       <ChartOne />
-      <!-- ====== Chart One End -->
+    </div>
 
-      <!-- ====== Chart Two Start -->
-      <ChartTwo />
-      <!-- ====== Chart Two End -->
+    <div class="mt-4 grid grid-cols-12 gap-1 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
 
-      <!-- ====== Chart Three Start -->
-      <ChartThree />
-      <!-- ====== Chart Three End -->
-
-      <!-- ====== Map One Start -->
-      <ChatCard />
-      <!-- ====== Map One End -->
-
-      <!-- ====== Table One Start -->
-      <div class="col-span-12 xl:col-span-8">
-        <!-- <TableOne /> -->
+      <div class="col-span-6 xl:col-span-6">
+        <ChartThree />
       </div>
-      <!-- ====== Table One End -->
+      <!-- ====== Table One Start -->
+      <div class="col-span-6 xl:col-span-6">
+        <ChartTwo />
+      </div>
 
-      <!-- ====== Chat Card Start -->
-      
-      <!-- ====== Chat Card End -->
     </div>
   </DefaultLayout>
 </template>

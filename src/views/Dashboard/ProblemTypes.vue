@@ -10,6 +10,8 @@ import { grivancesUrls, usersInfo, problemsUrl, DivisionUrls } from '@/utils/api
 import { useDivisionsStore } from '@/stores/departmentsStore'
 import { renderDateTime } from '@/utils/dateFormater'
 import ButtonDefault from '@/components/Buttons/ButtonDefault.vue'
+import router from '@/router'
+
 
 interface CUser {
   id: string
@@ -41,6 +43,12 @@ interface grivance {
 const alertStore = useAlertStore()
 const authStore = useAuthStore()
 const divisionStore = useDivisionsStore()
+
+
+const viewProblem = (id:any) =>  {
+     router.push('/dashboard/problem_type/' + id)
+}
+
 
 const pageTitle = ref('Problem Types')
 const isLoading = ref(false)
@@ -263,7 +271,9 @@ const addProlemType = async () => {
 
                     </div> -->
           <div class="col-span-1 flex items-center">
-            <button class="hover:text-primary">
+            <button class="hover:text-primary"
+            @click="viewProblem(type.id)"
+            >
               <svg
                 class="fill-current"
                 width="18"
