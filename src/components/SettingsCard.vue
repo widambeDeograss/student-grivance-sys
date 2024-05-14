@@ -5,7 +5,7 @@ import { usersInfo } from '@/utils/apis';
 import { useAlertStore } from '@/stores/alert';
 import { useAuthStore } from '@/stores/authStore';
 import { useDivisionsStore } from '@/stores/departmentsStore';
-
+import { baseUrl } from '@/utils/baseUrl'
 const alertStore = useAlertStore()
 const authStore = useAuthStore()
 const divisionStore = useDivisionsStore()
@@ -258,10 +258,10 @@ const updatePhoto = () => {
             <!-- User Photo Section -->
             <div class="mb-4 flex items-center gap-3">
               <div class="h-14 w-14 rounded-full">
-                <img :src="userPhoto" alt="User" />
+                <img :src="baseUrl + `${user?.profile}`" alt="User" />
               </div>
               <div>
-                <span class="mb-1.5 font-medium text-black dark:text-white">Edit your photo</span>
+                <span class="mb-1.5 font-medium text-black dark:text-white">{{ user?.email }}</span>
                 <span class="flex gap-2.5">
                   <button class="text-sm font-medium hover:text-primary" @click="deletePhoto">
                     Delete

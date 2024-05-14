@@ -387,7 +387,7 @@ const submitGrivance = async () => {
             <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6>
           </div>
           <h2 class="text-lg font-bold mt-4">Step 2: Attach Evidence</h2>
-          <h2 class="text-lg font-bold mb-4 mt-2">Problem:{{ message.substring(0, 30)}}</h2>
+          <h2 class="text-lg font-bold mb-4 mt-2">Problem:{{ message}}</h2>
           <div class="mb-4">
             <select
               v-model="selectedFileType"
