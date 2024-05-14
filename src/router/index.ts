@@ -274,7 +274,7 @@ const routes = [
     }
   },
   {
-    path: '/auth/signin',
+    path: '/auth/dit-grivance/signin',
     name: 'signin',
     component: SigninView,
     meta: {

@@ -217,30 +217,23 @@ const viewGrivance = (id:any) =>  {
                   </div>
                   <div class="ml-auto text-right">
                     <a class="relative z-10 inline-block px-4 py-2.5 mb-0 font-bold text-center  align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 bg-gradient-to-tl from-red-600 to-orange-600 hover:-translate-y-px active:opacity-85 bg-x-25 bg-clip-text"
-                      href="javascript:;"><i
-                        class="mr-2 far fa-trash-alt bg-150 bg-gradient-to-tl from-red-600 to-orange-600 bg-x-25 bg-clip-text"></i>Grivance State</a>
+                      href="javascript:;">Grivance State</a>
                     <template v-if="grivance.problem_solved_state">
                       <div>
-                        <a class="inline-block dark:text-white px-4 py-2.5 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 hover:-translate-y-px active:opacity-85 bg-x-25 text-slate-700 bg-green-700 animate-pulse"
-                      href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                        aria-hidden="true"></i>SOLVED</a>
+                        <a class="inline-block  px-4 py-2.5 mb-0 font-bold text-center align-middle transition-all border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 hover:-translate-y-px active:opacity-85 bg-x-25 text-white bg-green-500 animate-pulse"
+                      href="javascript:;">Solved</a>
                       </div>
                     </template>
                     <template v-else>
                       <div>
-                        <a class="inline-block dark:text-white px-4 py-2.5 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 hover:-translate-y-px active:opacity-85 bg-x-25 text-slate-700 bg-yellow-500 animate-pulse"
-                      href="javascript:;"><i class="mr-2 fas fa-pencil-alt text-slate-700"
-                        aria-hidden="true"></i>PENDING</a>
+                        <a class="inline-block  px-4 py-2.5 mb-0 font-bold text-center align-middle transition-all  border-0 rounded-lg shadow-none cursor-pointer leading-normal text-sm ease-in bg-150 hover:-translate-y-px active:opacity-85 bg-x-25 text-white bg-yellow-500 animate-pulse"
+                      href="javascript:;">Pending</a>
                       </div>
                     </template>
                   </div>
                 </li>
               </div>
             </template>
-
-
-
-
 
           </ul>
         </div>

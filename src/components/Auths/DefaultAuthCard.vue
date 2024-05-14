@@ -17,7 +17,7 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
           </router-link>
 
           <p class="font-medium 2xl:px-20">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse.
+            Take a few steps to create your account with Grivance system and submit and follow up on your grivances
           </p>
 
           <span class="mt-15 inline-block">

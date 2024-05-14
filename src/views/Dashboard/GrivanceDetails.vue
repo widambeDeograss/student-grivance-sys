@@ -129,7 +129,7 @@ const submitForm = async () => {
     isFileSelected ? formData.append('evdc', selectedFile.value) : null
     formData.append('problem', router?.params.id)
     formData.append('message', message.value)
-    formData.append('user', data.value?.user_submitted.id)
+    data.value?.user_submitted? formData.append('user', data.value?.user_submitted.id):formData.append('user',"")
 
     try {
       const response = await axios.post(

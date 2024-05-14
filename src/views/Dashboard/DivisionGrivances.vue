@@ -87,8 +87,8 @@ onMounted(async () => {
     }
 })
 
-const viewGrivance = (id:any) =>  {
-     router.push('/dashboard/grivance/' + id)
+const viewGrivance = (id: any) => {
+    router.push('/dashboard/grivance/' + id)
 }
 
 </script>
@@ -153,7 +153,7 @@ const viewGrivance = (id:any) =>  {
             </template>
             <template v-else-if="grivances.length === 0">
                 <div class="py-3 text-center">
-                   There is no active grivances for this division
+                    There is no active grivances for this division
                 </div>
             </template>
             <template v-else>
@@ -171,7 +171,7 @@ const viewGrivance = (id:any) =>  {
                     </div>
                     <div class="col-span-3 flex items-center">
                         <p class="text-sm font-medium text-black dark:text-white">{{
-            grvs.submitted_problem.substring(0, 50) }}...</p>
+            grvs.submitted_problem.substring(0, 30) }}...</p>
                     </div>
                     <div class="col-span-1 flex items-center">
                         <p class="text-sm font-medium text-black dark:text-white">{{
@@ -188,9 +188,7 @@ const viewGrivance = (id:any) =>  {
                     </div>
                     <div class="col-span-1 flex items-center">
 
-                        <button class="hover:text-primary"
-                        @click="viewGrivance(grvs.id)"
-                        >
+                        <button class="hover:text-primary" @click="viewGrivance(grvs.id)">
                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

@@ -49,7 +49,6 @@ const viewProblem = (id:any) =>  {
      router.push('/dashboard/problem_type/' + id)
 }
 
-
 const pageTitle = ref('Problem Types')
 const isLoading = ref(false)
 const admin = ref<CUser>()

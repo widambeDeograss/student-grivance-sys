@@ -218,7 +218,7 @@ const submitGrivance = async () => {
     if (response.status == 200) {
       alertStore.addAlert({
         title: 'Grivance submittes successful',
-        message: '',
+        message: `${message.value?.substring(0, 30)}...`,
         duration: 3000,
         type: 'success'
       })
@@ -366,7 +366,7 @@ const submitGrivance = async () => {
               @click="submitGrivance"
               class="flex w- justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 sm:w-full lg:w-32 w-full"
             >
-              Submit Grivance
+              Submit
             </button>
             <button
               @click="nextStep"
@@ -387,7 +387,7 @@ const submitGrivance = async () => {
             <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6>
           </div>
           <h2 class="text-lg font-bold mt-4">Step 2: Attach Evidence</h2>
-          <h2 class="text-lg font-bold mb-4 mt-2">Problem Id:</h2>
+          <h2 class="text-lg font-bold mb-4 mt-2">Problem:{{ message.substring(0, 30)}}</h2>
           <div class="mb-4">
             <select
               v-model="selectedFileType"

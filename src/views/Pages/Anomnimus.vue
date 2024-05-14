@@ -320,7 +320,7 @@ export default {
       <!-- Contact Form Start -->
       <div class="p-4">
         <h2 class="text-lg font-bold mb-1 px-10">
-          Take two steps to submit your grivance Anomnymusly,
+          Take two steps to submit your grivance Anomnymusly
         </h2>
         <div v-if="currentStep === 1" class="bg-gray-200 p-4 rounded-lg">
           <div class="w-full max-w-full px-3 mt-6 md:flex-none">
@@ -416,7 +416,7 @@ export default {
                   @click="submitGrivance"
                   class="flex w- justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 sm:w-full lg:w-32 w-full"
                 >
-                  Submit Grivance
+                  Submit
                 </button>
                 <button
                   @click="nextStep"

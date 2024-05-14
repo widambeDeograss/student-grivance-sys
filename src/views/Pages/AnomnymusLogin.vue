@@ -191,10 +191,10 @@ const login = async () => {
             Don’t have any account?
             <router-link to="/auth/signup" class="text-primary">Sign up</router-link>
           </p>
-          <p class="font-medium">
+          <!-- <p class="font-medium">
             Grivance sys responsible personel?
             <router-link to="/auth/signin" class="text-primary">Log in here</router-link>
-          </p>
+          </p> -->
         </div>
       </form>
     </DefaultCard>
