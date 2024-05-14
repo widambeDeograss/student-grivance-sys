@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('useAuthStore', {
                 this.setUserDtl(user.first_name + user.last_name + "_" + user.profile + "_" + user.email + "_" + user.username);
                 
                 if (response.status == 200 && token) {
-                    return true
+                    return user?.role;
                 }else{
                    return false
                 }

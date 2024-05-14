@@ -39,8 +39,8 @@ const login = async () => {
 
   try {
     isLoading.value = true
-    const response: boolean = await authStore.login(authUrls.login, body)
-
+    const response = await authStore.login(authUrls.login, body)
+    
     if (response) {
       // clearform();
       alertStore.addAlert({
@@ -49,7 +49,18 @@ const login = async () => {
         duration: 3000,
         type: 'success'
       })
-      router.push({ name: 'userGrivances' })
+      if(response === 2){
+        router.push({ name: 'userGrivances' })
+      }else{
+        alertStore.addAlert({
+        title: 'Login Failed',
+        message: 'Incorrect email or password',
+        duration: 3000,
+        type: 'error'
+      })
+        return;
+      }
+      
     } else {
       alertStore.addAlert({
         title: 'Login Failed',

@@ -39,17 +39,29 @@ const login = async () => {
 
   try {
     isLoading.value = true
-    const response: boolean = await authStore.login(authUrls.login, body)
+    const response = await authStore.login(authUrls.login, body)
 
     if (response) {
       // clearform();
-      alertStore.addAlert({
+     
+      if(response === 2){
+        alertStore.addAlert({
+        title: 'Login Failed',
+        message: 'Incorrect email or password',
+        duration: 3000,
+        type: 'error'
+      })
+        return;   
+      }else{
+        alertStore.addAlert({
         title: 'Success',
         message: 'Login Success',
         duration: 3000,
         type: 'success'
       })
-      router.push({ name: 'Dashboad' });
+        router.push({ name: 'Dashboad' });
+      }
+      
     } else {
       alertStore.addAlert({
         title: 'Login Failed',
@@ -73,10 +85,6 @@ const login = async () => {
 </script>
 
 <template>
-  <!-- <DefaultLayout> -->
-  <!-- Breadcrumb Start -->
-  <!-- <BreadcrumbDefault :pageTitle="pageTitle" /> -->
-  <!-- Breadcrumb End -->
   <AlertWarning />
   <DefaultAuthCard
     subtitle="A few steps to your account"
