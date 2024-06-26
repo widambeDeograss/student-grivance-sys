@@ -275,10 +275,11 @@ const submitGrivance = async () => {
     <div v-if="currentStep === 1" class="bg-gray-200 p-4 rounded-lg">
       <div class="w-full max-w-full px-3 mt-6 md:flex-none">
         <div
-          class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border p-8"
+          class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl  bg-clip-border p-8"
         >
           <div class="pb-0 mb-0 border-b-0 rounded-t-2xl">
             <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6>
+            <h2 class="text-lg font-bold mt-4">Step 1: Submit your grievance</h2>
           </div>
 
           <div class="mt-6">
@@ -368,24 +369,14 @@ const submitGrivance = async () => {
             >
               Submit
             </button>
-            <button
-              @click="nextStep"
-              class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-600 float-right w-full text-center sm:w-full lg:w-32"
-            >
-              Next step
-            </button>
+          
           </div>
         </div>
-      </div>
-    </div>
-    <div v-else-if="currentStep === 2" class="bg-gray-200 p-4 rounded-lg">
-      <div class="w-full max-w-full px-3 mt-6 md:flex-none">
+  
         <div
-          class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border p-8"
+          class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl  bg-clip-border p-8"
         >
-          <div class="pb-0 mb-0 border-b-0 rounded-t-2xl">
-            <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6>
-          </div>
+         
           <h2 class="text-lg font-bold mt-4">Step 2: Attach Evidence</h2>
           <h2 class="text-lg font-bold mb-4 mt-2">Problem:{{ message}}</h2>
           <div class="mb-4">
@@ -425,12 +416,7 @@ const submitGrivance = async () => {
             </div>
           </div>
           <div class="flex justify-between items-center">
-            <button
-              @click="prevStep"
-              class="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-gray-600"
-            >
-              Back
-            </button>
+           
             <template v-if="isFormLoading">
               <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                 Submiting......
@@ -439,7 +425,7 @@ const submitGrivance = async () => {
             <template v-else>
               <button
                 @click="submitForm"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                class="bg-primary  text-white px-6 py-3 rounded hover:bg-blue-600"
               >
                 Submit
               </button>
