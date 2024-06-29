@@ -43,13 +43,13 @@ const login = async () => {
     
     if (response) {
       // clearform();
-      alertStore.addAlert({
+      if(response === 2){
+        alertStore.addAlert({
         title: 'Success',
         message: 'Login Success',
         duration: 3000,
         type: 'success'
       })
-      if(response === 2){
         router.push({ name: 'userGrivances' })
       }else{
         alertStore.addAlert({

@@ -30,6 +30,7 @@ import SubDivisionGrivances from '@/views/Dashboard/SubDivisionGrivances.vue'
 import SubdivisionProblemTypes from '@/views/Dashboard/SubdivisionProblemTypes.vue'
 import ProblemTypeStats from '@/views/Dashboard/ProblemTypeStats.vue'
 import DivisionStats from '@/views/Dashboard/DivisionStats.vue'
+import Profile from '@/views/Pages/Profile.vue'
 
 const routes = [
   {
@@ -204,7 +205,7 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: ProfileView,
+    component: Profile,
     meta: {
       title: 'Profile',
       requiresAuth:true
