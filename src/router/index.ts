@@ -31,6 +31,7 @@ import SubdivisionProblemTypes from '@/views/Dashboard/SubdivisionProblemTypes.v
 import ProblemTypeStats from '@/views/Dashboard/ProblemTypeStats.vue'
 import DivisionStats from '@/views/Dashboard/DivisionStats.vue'
 import Profile from '@/views/Pages/Profile.vue'
+import DivisionSuggestions from "@/views/Dashboard/DivisionSuggestions.vue"
 
 const routes = [
   {
@@ -47,6 +48,15 @@ const routes = [
     component: AnomnimusLogin,
     meta: {
       title: 'Login Submission'
+    }
+  },
+  {
+    path: '/suggestions',
+    name: 'suggestions',
+    component: DivisionSuggestions,
+    meta: {
+      title: 'User suggestions',
+      requiresAuth:true
     }
   },
   {

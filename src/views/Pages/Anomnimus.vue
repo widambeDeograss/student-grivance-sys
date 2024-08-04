@@ -52,6 +52,8 @@ export default {
     const saved_problem = ref()
     const message = ref<string>()
     const isFormLoading = ref(false)
+    const submittingSuggestion = ref(false);
+    const suggType = ref(1);
 
     console.log(divisios)
 
@@ -165,8 +167,48 @@ export default {
       selectedFile.value = event.target.files[0]
     }
 
+    const submitSuggestion = async () => {
+       // Check if file type matches selected file type
+       if (
+        submittingSuggestion.value
+      ) {
+        try {
+          isFormLoading.value = true;
+          const body = {
+            message: message.value,
+            division: selectedDepartmentId.value,
+            type: suggType.value
+          }
+          console.log('====================================');
+          console.log(body);
+          console.log('====================================');
+          const response = await axios.post(DivisionUrls.suggestions, body, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          if (response) {
+            alertStore.addAlert({
+              title: 'Suggestion submission',
+              message: 'Suggestion submitted successfully',
+              duration: 3000,
+              type: 'success'
+            })
+            isFormLoading.value = false;
+          }
+        } catch (error) {
+          alertStore.addAlert({
+          title: 'Suggestion submission',
+          message: 'Suggestion submission failes',
+          duration: 3000,
+          type: 'erroe'
+        })
+        }
+      }
+    }
+
     const submitForm = async () => {
-      // Check if file type matches selected file type
+    
       if (
         selectedFile.value &&
         selectedFile?.value?.type.includes(selectedFileType.value) &&
@@ -193,8 +235,7 @@ export default {
               'Content-Type': 'multipart/form-data'
             }
           })
-          console.log(response);
-          
+
 
           if (response?.data?.save) {
             alertStore.addAlert({
@@ -251,7 +292,10 @@ export default {
       submitGrivance,
       problemtype_selected,
       saved_problem,
-      isFormLoading
+      isFormLoading, 
+      submitSuggestion, 
+      submittingSuggestion,
+      suggType
     }
   }
 }
@@ -327,11 +371,18 @@ export default {
             <div
               class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl  bg-clip-border p-8"
             >
+            
               <div class="pb-0 mb-0 border-b-0 rounded-t-2xl">
                 <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6>
                 <h2 class="text-lg font-bold mt-4">Step 1: Submit your grievance</h2>
               </div>
-
+              <button
+                  @click="submittingSuggestion = true"
+                  v-if="submittingSuggestion === false"
+                  class="flex w- justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 sm:w-full lg:w-1/3 mt-3 w-full"
+                >
+                  Suggestions and Congraturational greatings
+                </button>
               <div class="mt-6">
                 <h6 class="mb-0 dark:text-white">SELECT DIVISION</h6>
                 <template v-if="isLoading">
@@ -359,7 +410,8 @@ export default {
                   </div>
                 </template>
               </div>
-              <div class="mt-4" v-if="subdivisions.length > 0">
+              
+              <div class="mt-4" v-if="subdivisions.length > 0 && submittingSuggestion === false">
                 <h6 class="mb-0 dark:text-white">SELECT SUBDIVISION</h6>
                 <template v-if="isLoading">
                   <div class="flex flex-wrap justify-start items-center gap-6 w-full mt-3">
@@ -389,8 +441,20 @@ export default {
                 </template>
               </div>
 
-              <div class="mb-6 mt-3" v-if="selectedDepartmentId">
+              <div class="mb-6 mt-3" v-if="submittingSuggestion === true" >
                 <label class="mb-2.5 block text-black dark:text-white"> Select problem type </label>
+                <select
+                  v-model="suggType"
+                  class="bg-white border border-gray-400 rounded px-4 py-2 focus:outline-none focus:border-blue-500 w-full"
+                >
+                
+                    <option value="1">Suggestion</option>
+                    <option value="2">Congraturations</option>
+        
+                </select>
+              </div>
+              <div class="mb-6 mt-3" v-if="selectedDepartmentId && submittingSuggestion === false">
+                <label class="mb-2.5 block text-black dark:text-white"> Select type </label>
                 <select
                   v-model="problemtype_selected"
                   class="bg-white border border-gray-400 rounded px-4 py-2 focus:outline-none focus:border-blue-500 w-full"
@@ -402,10 +466,11 @@ export default {
               </div>
 
               <div class="mb-6 mt-3">
-                <label class="mb-2.5 block text-black dark:text-white"> Grivance </label>
+                <label class="mb-2.5 block text-black dark:text-white" v-if="submittingSuggestion">Message </label>
+                <label class="mb-2.5 block text-black dark:text-white" v-else> Grivance </label>
                 <textarea
                   rows="6"
-                  placeholder="Type your grivance"
+                  :placeholder="submittingSuggestion? 'Write message': 'Write your grivance'"
                   required
                   v-model="message"
                   class="w-full rounded border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -414,7 +479,15 @@ export default {
 
               <div class="flex justify-between items-center">
                 <button
+                  @click="submitSuggestion"
+                  v-if="submittingSuggestion === true"
+                  class="flex w- justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 sm:w-full lg:w-32 w-full"
+                >
+                  Submit
+                </button>
+                <button
                   @click="submitGrivance"
+                 v-else
                   class="flex w- justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90 sm:w-full lg:w-32 w-full"
                 >
                   Submit
@@ -430,6 +503,7 @@ export default {
          
             <div
               class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl  bg-clip-border p-8"
+              v-if="submittingSuggestion === false"
             >
               <div class="pb-0 mb-0 border-b-0 rounded-t-2xl">
                 <!-- <h6 class="mb-0 dark:text-white text-black font-bold">GRIVANCE SUBMISSION FORM</h6> -->

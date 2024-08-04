@@ -18,6 +18,7 @@ export const problemsUrl = {
 
 export const DivisionUrls = { 
     allDivisions : baseUrl + "/api/divisions",
+    suggestions : baseUrl + "/api/suggestions",
     divisionDetails: baseUrl + "/api/divisions",
     subDivision : baseUrl + "/api/sub_divisions",
     divProblemType : baseUrl + "/api/problem_type",
